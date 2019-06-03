@@ -1,56 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <title>Document</title>
-</head>
-<body>
-    <div class="container">
-        <div class="row"></div>
-    </div>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<title>Document</title>
+    </head>
+    
+<style>
 
-
-<script>
-
-let animalPictures = ["https://authortuchey.files.wordpress.com/2019/03/smiling-dog.jpg", "https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/29/2015/01/iStock_000049523580_Medium.jpg", "https://yt3.ggpht.com/a-/AN66SAw0I91wR4sIHhxctvESKGJfIkChI1Nv4NGXxw=s900-mo-c-c0xffffffff-rj-k-no", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO_LQEO_PokTMbza02p49kl034F5yAR1oQLqcxL46ar_7xWCQP", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm7ql63_ZXdzGYTv0pEIrG1WE2rUCqhqm10xAGgBlvnl5Mek-z", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0THfuZQNi7WM7Ci4nl4RtgunGfNrLLrOjhZ6DLx-Mww_OQqn4", "https://authortuchey.files.wordpress.com/2019/03/smiling-dog.jpg", "https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/29/2015/01/iStock_000049523580_Medium.jpg", "https://yt3.ggpht.com/a-/AN66SAw0I91wR4sIHhxctvESKGJfIkChI1Nv4NGXxw=s900-mo-c-c0xffffffff-rj-k-no", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO_LQEO_PokTMbza02p49kl034F5yAR1oQLqcxL46ar_7xWCQP", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm7ql63_ZXdzGYTv0pEIrG1WE2rUCqhqm10xAGgBlvnl5Mek-z", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0THfuZQNi7WM7Ci4nl4RtgunGfNrLLrOjhZ6DLx-Mww_OQqn4"];
-
-shufflePictures = (arr) => {
-    let counter = arr.length;
-
-while (counter > 0) {
-    let index = Math.floor(Math.random() * counter);
-    counter--;
-
-    let temp = arr[counter];
-    arr[counter] = arr[index];
-    arr[index] = temp;
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-return arr;
-}
+</style>
 
-shuffeledPics = shufflePictures(animalPictures);
+	<body>
+		<div class="container">
+			<div class="row"></div>
+		</div>
+	</body>
 
-for(let i = 0; i< shuffeledPics.length; i++){
+	<script>
+		let animalPictures = [
+			'https://authortuchey.files.wordpress.com/2019/03/smiling-dog.jpg',
+			'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/29/2015/01/iStock_000049523580_Medium.jpg',
+			'https://yt3.ggpht.com/a-/AN66SAw0I91wR4sIHhxctvESKGJfIkChI1Nv4NGXxw=s900-mo-c-c0xffffffff-rj-k-no',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO_LQEO_PokTMbza02p49kl034F5yAR1oQLqcxL46ar_7xWCQP',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm7ql63_ZXdzGYTv0pEIrG1WE2rUCqhqm10xAGgBlvnl5Mek-z',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0THfuZQNi7WM7Ci4nl4RtgunGfNrLLrOjhZ6DLx-Mww_OQqn4',
+			'https://authortuchey.files.wordpress.com/2019/03/smiling-dog.jpg',
+			'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/29/2015/01/iStock_000049523580_Medium.jpg',
+			'https://yt3.ggpht.com/a-/AN66SAw0I91wR4sIHhxctvESKGJfIkChI1Nv4NGXxw=s900-mo-c-c0xffffffff-rj-k-no',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO_LQEO_PokTMbza02p49kl034F5yAR1oQLqcxL46ar_7xWCQP',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm7ql63_ZXdzGYTv0pEIrG1WE2rUCqhqm10xAGgBlvnl5Mek-z',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0THfuZQNi7WM7Ci4nl4RtgunGfNrLLrOjhZ6DLx-Mww_OQqn4',
+		];
 
-    let image = $("<img/>");
-    image.css({
-        "background-image": `url(${shuffeledPics[i]})`,
-        "background-size": "cover",
-        "width": 25+"%",
-        "height": 150+"px",
-        "margin": 3+"%",
-        "background-position": "center"
-    })
-    $(".row").append(image);
-}
+		shufflePictures = arr => {
+			let counter = arr.length;
 
+			while (counter > 0) {
+				let index = Math.floor(Math.random() * counter);
+				counter--;
 
+				let temp = arr[counter];
+				arr[counter] = arr[index];
+				arr[index] = temp;
+			}
 
-</script>
+			return arr;
+		};
+
+		shuffeledPics = shufflePictures(animalPictures);
+		let i = 0;
+		for (i = 0; i < shuffeledPics.length; i++) {
+			let image = $('<img/>');
+			image.addClass('animal-class');
+			image.attr('id', i);
+			image.css({
+				'background-image': `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`,
+				'background-size': 'cover',
+				width: 20 + '%',
+				height: 150 + 'px',
+				margin: 1 + '%',
+				'background-position': 'center',
+			});
+			$('.row').append(image);
+		}
+		let condition = true;
+		let winCounter = 0;
+		let checkedArray = [];
+		$('.animal-class').click(function(e) {
+			if (condition) {
+				$(this).css('background-image', `url(${shuffeledPics[this.id]})`);
+				checkedArray.push(this);
+
+				if (checkedArray.length === 2) {
+					condition = false;
+					if (checkedArray[0].style.backgroundImage === checkedArray[1].style.backgroundImage) {
+						winCounter++;
+						setTimeout(() => {
+							condition = true;
+						}, 250);
+						console.log(winCounter);
+						if (shuffeledPics.length / 2 === winCounter) {
+                            $('.row').empty();
+                            let winBox = $("<div/>");
+                            winBox.css({
+                                //"position": "fixed",
+                                width: 300+"px",
+                                height: 300+"px"
+                            })
+                            winBox.text("You won!!!");
+                            $(".row").append(winBox);
+                            let button = $("<button/>");
+                            button.addClass("btn btn-success");
+                            button.text("start again!");
+                            $(".btn-success").click( function () {
+                                console.log("works")
+                            })
+                            winBox.append(button);
+						}
+						checkedArray = [];
+					} else {
+						setTimeout(() => {
+							checkedArray[0].style.backgroundImage = `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`;
+							checkedArray[1].style.backgroundImage = `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`;
+							checkedArray = [];
+							condition = true;
+						}, 1000);
+					}
+				}
+			}
+		});
+	</script>
 </html>
