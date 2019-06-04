@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<title>Document</title>
+	</head>
+
+	<style>
+		body {
+			background-image: url('https://newforestwildlifepark.co.uk/media/1008/nfwpmap.jpg');
+			justify-content: center;
+			background-size: cover;
+			align-items: center;
+		}
+
+		.animal-theme {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	</style>
+
+	<body>
+		<div class="container">
+			<div class="float-left">
+				<button type="button" class="btn btn-danger btn-lg mt-1 mr-5">Change Theme Button</button>
+				<button id="medium" class="btn btn-primary mr-3 ">Medium Size</button>
+				<button id="big" class="btn btn-primary mt">Big Size</button>
+			</div>
+		
+			<br />
+			<div class="row animal-theme">
+				
+			</div>
+			<br />
+			<div class="row mt-5"></div>
+		</div>
+	</body>
+
+	<script>
+		let mistakeCounter = 0;
+		let boardSize = 18;
+
+		let animalPictures = [
+			'https://www.niabizoo.com/wp-content/uploads/2018/05/ms-animals-habitats-mammals.jpg',
+			'https://www.niabizoo.com/wp-content/uploads/2018/05/ms-animals-habitats-mammals.jpg',
+			'http://www.percyspets.co.uk/wp-content/uploads/2012/01/small-animals.jpg',
+			'http://www.percyspets.co.uk/wp-content/uploads/2012/01/small-animals.jpg',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPkREwo32hS-soajyjjdQcSBh2NNhaLawWOFWpaVn_37PRNFoEjw',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPkREwo32hS-soajyjjdQcSBh2NNhaLawWOFWpaVn_37PRNFoEjw',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0q9RH_1-dgKOHHGg01AF0zWKKfowJ2nxqWsHBjoINQ6q229nQdw',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0q9RH_1-dgKOHHGg01AF0zWKKfowJ2nxqWsHBjoINQ6q229nQdw',
+			'http://2.bp.blogspot.com/_G--sasIG8GY/TMMQ4c4TYmI/AAAAAAAAGOc/SeOv-ntsXv0/s400/hamster_000002566309.jpg',
+			'http://2.bp.blogspot.com/_G--sasIG8GY/TMMQ4c4TYmI/AAAAAAAAGOc/SeOv-ntsXv0/s400/hamster_000002566309.jpg',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQveq1OtxvCbSCcmJi5JU2XNAq-DU65a-dymUEpl0Bbl1MWjU8K',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQveq1OtxvCbSCcmJi5JU2XNAq-DU65a-dymUEpl0Bbl1MWjU8K',
+			'http://www.alabamanews.net/wp-content/uploads/2016/08/AP_624293587341-300x225.png',
+			'http://www.alabamanews.net/wp-content/uploads/2016/08/AP_624293587341-300x225.png',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-5UrLFgzl8O0DcAcHIKMAThE66Z2QK86ZS1ZW5_pqc3LuGEtjGw',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-5UrLFgzl8O0DcAcHIKMAThE66Z2QK86ZS1ZW5_pqc3LuGEtjGw',
+			'https://i.ytimg.com/vi/KaqcU_4xByg/hqdefault.jpg',
+			'https://i.ytimg.com/vi/KaqcU_4xByg/hqdefault.jpg',
+			'https://authortuchey.files.wordpress.com/2019/03/smiling-dog.jpg',
+			'https://authortuchey.files.wordpress.com/2019/03/smiling-dog.jpg',
+			'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/29/2015/01/iStock_000049523580_Medium.jpg',
+			'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/29/2015/01/iStock_000049523580_Medium.jpg',
+			'https://yt3.ggpht.com/a-/AN66SAw0I91wR4sIHhxctvESKGJfIkChI1Nv4NGXxw=s900-mo-c-c0xffffffff-rj-k-no',
+			'https://yt3.ggpht.com/a-/AN66SAw0I91wR4sIHhxctvESKGJfIkChI1Nv4NGXxw=s900-mo-c-c0xffffffff-rj-k-no',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO_LQEO_PokTMbza02p49kl034F5yAR1oQLqcxL46ar_7xWCQP',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO_LQEO_PokTMbza02p49kl034F5yAR1oQLqcxL46ar_7xWCQP',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm7ql63_ZXdzGYTv0pEIrG1WE2rUCqhqm10xAGgBlvnl5Mek-z',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm7ql63_ZXdzGYTv0pEIrG1WE2rUCqhqm10xAGgBlvnl5Mek-z',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0THfuZQNi7WM7Ci4nl4RtgunGfNrLLrOjhZ6DLx-Mww_OQqn4',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0THfuZQNi7WM7Ci4nl4RtgunGfNrLLrOjhZ6DLx-Mww_OQqn4',
+		];
+
+		shufflePictures = arr => {
+			let counter = arr.length;
+			while (counter > 0) {
+				let index = Math.floor(Math.random() * counter);
+				counter--;
+
+				let temp = arr[counter];
+				arr[counter] = arr[index];
+				arr[index] = temp;
+			}
+			return arr;
+		};
+
+		shuffeledPics = shufflePictures(animalPictures);
+		let i = 0;
+
+		dealCards = (size) => {
+			for (i = 0; i < shuffeledPics.length - size; i++) {
+				let image = $('<img/>');
+				image.addClass('animal-class');
+				image.attr('id', i);
+				image.css({
+					'background-image': `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`,
+					'background-size': 'cover',
+					width: 20 + '%',
+					height: 150 + 'px',
+					margin: 1 + '%',
+					'background-position': 'center',
+					border: '3px solid white',
+				});
+				$('.row.mt-5').append(image);
+			}
+		};
+
+		dealCards(boardSize);
+
+
+		let condition = true;
+		let winCounter = 0;
+		let checkedArray = [];
+		$('.animal-class').click(function(e) {
+			if (condition) {
+				$(this).css('background-image', `url(${shuffeledPics[this.id]})`);
+				checkedArray.push(this);
+
+				if (checkedArray.length === 2) {
+					condition = false;
+					if (checkedArray[0].style.backgroundImage === checkedArray[1].style.backgroundImage) {
+						winCounter++;
+						setTimeout(() => {
+							condition = true;
+						}, 250);
+						console.log(winCounter);
+						if (shuffeledPics.length / 2 === winCounter) {
+							$('.row').empty();
+							let winBox = $('<div/>');
+							winBox.css({
+								width: 300 + 'px',
+								height: 300 + 'px',
+								backgroundColor: 'grey',
+								opacity: 0.7,
+							});
+							winBox.text(`You won!!! You had ${mistakeCounter} mistakes`);
+
+							let button = $('<button/>');
+							button.addClass('btn btn-success');
+							button.text('start the game again!');
+							winBox.append(button);
+							$('.animal-theme').append(winBox);
+							$('.btn').on('click', function() {
+								location.reload(true);
+							});
+						}
+						checkedArray = [];
+					} else {
+						setTimeout(() => {
+							mistakeCounter++;
+							checkedArray[0].style.backgroundImage = `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`;
+							checkedArray[1].style.backgroundImage = `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`;
+							checkedArray = [];
+							condition = true;
+						}, 1000);
+					}
+				}
+			}
+		});
+
+
+
+
+		// change game-board size;
+
+		$("#medium").click( () =>  {
+			$('.row').empty();
+			boardSize = 10; 
+			dealCards(boardSize);
+		});
+
+		$("#big").click( () =>  {
+			$('.row').empty();
+			boardSize = 0; 
+			dealCards(boardSize);
+		})
+
+	</script>
+</html>
