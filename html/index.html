@@ -26,24 +26,28 @@
 
 	<body>
 		<div class="container">
+				
 			<div class="float-left">
 				<button type="button" class="btn btn-danger btn-lg mt-1 mr-5">Change Theme Button</button>
 				<button id="medium" class="btn btn-primary mr-3 ">Medium Size</button>
 				<button id="big" class="btn btn-primary mt">Big Size</button>
 			</div>
-		
+
 			<br />
-			<div class="row animal-theme">
-				
-			</div>
+			<div class="row animal-theme"></div>
 			<br />
 			<div class="row mt-5"></div>
+
 		</div>
 	</body>
 
 	<script>
 		let mistakeCounter = 0;
 		let boardSize = 18;
+		let clickBlocker = true;
+		let academia = false;
+		var audio = new Audio('audio_file.mp3');
+		//audio.play();
 
 		let animalPictures = [
 			'https://www.niabizoo.com/wp-content/uploads/2018/05/ms-animals-habitats-mammals.jpg',
@@ -78,8 +82,43 @@
 			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0THfuZQNi7WM7Ci4nl4RtgunGfNrLLrOjhZ6DLx-Mww_OQqn4',
 		];
 
-		shufflePictures = arr => {
-			let counter = arr.length;
+		let philosophers = [
+			'../images/socrates.jpg',
+			'../images/socrates.jpg',
+			'../images/plato.jpg',
+			'../images/plato.jpg',
+			'../images/aristotles.jpg',
+			'../images/aristotles.jpg',
+			'../images/marc-aurel.jpg',
+			'../images/marc-aurel.jpg',
+			'../images/diogenes.jpg',
+			'../images/diogenes.jpg',
+			'../images/Hobbes.jpg',
+			'../images/Hobbes.jpg',
+			'../images/Locke.jpg',
+			'../images/Locke.jpg',
+			'../images/kant.jpg',
+			'../images/kant.jpg',
+			'../images/Spinoza.jpg',
+			'../images/Spinoza.jpg',
+			'../images/Nietzsche.jpg',
+			'../images/Nietzsche.jpg',
+			'../images/Pascal.jpg',
+			'../images/Pascal.jpg',
+			'../images/Feuerbach.jpg',
+			'../images/Feuerbach.jpg',
+			'../images/Hume.jpg',
+			'../images/Hume.jpg',
+			'../images/Dekart.jpg',
+			'../images/Dekart.jpg',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0THfuZQNi7WM7Ci4nl4RtgunGfNrLLrOjhZ6DLx-Mww_OQqn4',
+			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0THfuZQNi7WM7Ci4nl4RtgunGfNrLLrOjhZ6DLx-Mww_OQqn4',
+		];
+
+
+		shufflePictures = (arr) => {
+			console.log(boardSize);
+			let counter = arr.length - boardSize;
 			while (counter > 0) {
 				let index = Math.floor(Math.random() * counter);
 				counter--;
@@ -92,95 +131,143 @@
 		};
 
 		shuffeledPics = shufflePictures(animalPictures);
-		let i = 0;
+		console.log(shuffeledPics);
 
-		dealCards = (size) => {
-			for (i = 0; i < shuffeledPics.length - size; i++) {
+		let index = 0;
+		dealCards = size => {
+			for (index = 0; index < shuffeledPics.length - size; index++) {
 				let image = $('<img/>');
 				image.addClass('animal-class');
-				image.attr('id', i);
-				image.css({
-					'background-image': `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`,
-					'background-size': 'cover',
-					width: 20 + '%',
-					height: 150 + 'px',
-					margin: 1 + '%',
-					'background-position': 'center',
-					border: '3px solid white',
-				});
+				image.attr('id', index);
+				if (academia) {
+					image.css({
+						'background-image': `url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkgLWi8dvl49_HOYMpjc-JsKNg6UHgv6LThsVh8qLP0hoLINlx")`,
+						'background-size': 'cover',
+						width: 20 + '%',
+						height: 150 + 'px',
+						margin: 1 + '%',
+						'background-position': 'center',
+						border: '3px solid white',
+					});
+				} else {
+					image.css({
+						'background-image': `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`,
+						'background-size': 'cover',
+						width: 20 + '%',
+						height: 150 + 'px',
+						margin: 1 + '%',
+						'background-position': 'center',
+						border: '3px solid white',
+					});
+				}
 				$('.row.mt-5').append(image);
 			}
 		};
 
 		dealCards(boardSize);
 
-
-		let condition = true;
 		let winCounter = 0;
 		let checkedArray = [];
-		$('.animal-class').click(function(e) {
-			if (condition) {
-				$(this).css('background-image', `url(${shuffeledPics[this.id]})`);
-				checkedArray.push(this);
 
-				if (checkedArray.length === 2) {
-					condition = false;
-					if (checkedArray[0].style.backgroundImage === checkedArray[1].style.backgroundImage) {
-						winCounter++;
-						setTimeout(() => {
-							condition = true;
-						}, 250);
-						console.log(winCounter);
-						if (shuffeledPics.length / 2 === winCounter) {
-							$('.row').empty();
-							let winBox = $('<div/>');
-							winBox.css({
-								width: 300 + 'px',
-								height: 300 + 'px',
-								backgroundColor: 'grey',
-								opacity: 0.7,
-							});
-							winBox.text(`You won!!! You had ${mistakeCounter} mistakes`);
+		gamePlay = () => {
+			$('.animal-class').click(function(e) {
+				if (clickBlocker) {
+					$(this).css('background-image', `url(${shuffeledPics[this.id]})`);
+					checkedArray.push(this);
 
-							let button = $('<button/>');
-							button.addClass('btn btn-success');
-							button.text('start the game again!');
-							winBox.append(button);
-							$('.animal-theme').append(winBox);
-							$('.btn').on('click', function() {
-								location.reload(true);
-							});
-						}
-						checkedArray = [];
-					} else {
-						setTimeout(() => {
-							mistakeCounter++;
-							checkedArray[0].style.backgroundImage = `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`;
-							checkedArray[1].style.backgroundImage = `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`;
+					if (checkedArray.length === 2) {
+						clickBlocker = false;
+						if (checkedArray[0].style.backgroundImage === checkedArray[1].style.backgroundImage) {
+							winCounter++;
+							setTimeout(() => {
+								clickBlocker = true;
+							}, 250);
+							if ((shuffeledPics.length - boardSize) / 2 === winCounter) {
+								$('.row').empty();
+								let winBox = $('<div/>');
+								winBox.css({
+									width: 300 + 'px',
+									height: 300 + 'px',
+									backgroundColor: 'grey',
+									opacity: 0.8,
+								});
+								winBox.text(`You won!!! You had ${mistakeCounter} mistakes`);
+
+								let button = $('<button/>');
+								button.addClass('btn btn-success');
+								button.text('start the game again!');
+								winBox.append(button);
+								$('.animal-theme').append(winBox);
+								$('.btn').on('click', function() {
+									location.reload(true);
+								});
+							}
 							checkedArray = [];
-							condition = true;
-						}, 1000);
+						} else {
+							setTimeout(() => {
+								mistakeCounter++;
+								if (academia) {
+									checkedArray[0].style.backgroundImage = `url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkgLWi8dvl49_HOYMpjc-JsKNg6UHgv6LThsVh8qLP0hoLINlx")`;
+									checkedArray[1].style.backgroundImage = `url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkgLWi8dvl49_HOYMpjc-JsKNg6UHgv6LThsVh8qLP0hoLINlx")`;
+								} else {
+									checkedArray[0].style.backgroundImage = `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`;
+									checkedArray[1].style.backgroundImage = `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`;
+								}
+
+								checkedArray = [];
+								clickBlocker = true;
+							}, 1000);
+						}
 					}
 				}
-			}
-		});
+			});
+		};
 
-
-
+		gamePlay();
 
 		// change game-board size;
 
-		$("#medium").click( () =>  {
+		$('#medium').click(() => {
 			$('.row').empty();
-			boardSize = 10; 
+			boardSize = 10;
+			if(academia){
+				shuffeledPics = shufflePictures(philosophers);
+			}else{
+				shuffeledPics = shufflePictures(animalPictures);
+			}
 			dealCards(boardSize);
+			gamePlay();
 		});
 
-		$("#big").click( () =>  {
+		$('#big').click(() => {
 			$('.row').empty();
-			boardSize = 0; 
+			boardSize = 0;
+			if(academia){
+				shuffeledPics = shufflePictures(philosophers);
+			}else{
+				shuffeledPics = shufflePictures(animalPictures);
+			}
+			
 			dealCards(boardSize);
-		})
+			gamePlay();
+		});
 
+		//change game Theme
+
+		$('.btn-danger').click(() => {
+			academia = true;
+			$('.row').empty();
+			$('body').css({
+				backgroundImage: `url("../images/academia.jpg")`,
+				backgroundSize: 'cover',
+			});
+			//boardSize = 16;
+			shuffeledPics = shufflePictures(philosophers);
+			console.log(shuffeledPics);
+			console.log(boardSize);
+			dealCards(boardSize);
+			gamePlay();
+		});
+	
 	</script>
 </html>
