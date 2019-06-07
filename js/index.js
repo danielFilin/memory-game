@@ -100,7 +100,7 @@ dealCards = size => {
             image.css({
                 'background-image': `url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkgLWi8dvl49_HOYMpjc-JsKNg6UHgv6LThsVh8qLP0hoLINlx")`,
                 'background-size': 'cover',
-                width: 20 + '%',
+                width: 19 + '%',
                 height: 150 + 'px',
                 margin: 1 + '%',
                 'background-position': 'center',
@@ -110,7 +110,7 @@ dealCards = size => {
             image.css({
                 'background-image': `url("https://image.freepik.com/free-vector/cute-animals-head-background_1042-90.jpg")`,
                 'background-size': 'cover',
-                width: 20 + '%',
+                width: 19 + '%',
                 height: 150 + 'px',
                 margin: 1 + '%',
                 'background-position': 'center',
