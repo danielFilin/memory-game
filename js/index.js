@@ -70,8 +70,8 @@ let philosophers = [
     '../images/Hume.jpg',
     '../images/Dekart.jpg',
     '../images/Dekart.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0THfuZQNi7WM7Ci4nl4RtgunGfNrLLrOjhZ6DLx-Mww_OQqn4',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0THfuZQNi7WM7Ci4nl4RtgunGfNrLLrOjhZ6DLx-Mww_OQqn4',
+    '../images/hegel.jpg',
+    '../images/hegel.jpg',
 ];
 
 shufflePictures = arr => {
@@ -127,16 +127,18 @@ let winCounter = 0;
 let checkedArray = [];
 
 gamePlay = () => {
-    $('.animal-class').click(function (e) {
+    $('.animal-class').click(function () {
         if (clickBlocker) {
             $(this).css('background-image', `url(${shuffeledPics[this.id]})`);
             checkedArray.push(this);
 
+            //make sure that only two pictures are selected
             if (checkedArray.length === 2) {
                 clickBlocker = false;
                 checkedArray[0].style.border = "5px solid green";
                 checkedArray[1].style.border = "5px solid green";
 
+                //correct choice case
                 if (checkedArray[0].style.backgroundImage === checkedArray[1].style.backgroundImage) {
                     audioCorrect.play();
                     winCounter++;
@@ -145,6 +147,7 @@ gamePlay = () => {
                     setTimeout(() => {
                         clickBlocker = true;
                     }, 250);
+                    // if you won the game
                     if ((shuffeledPics.length - boardSize) / 2 === winCounter) {
                         winCounter = 0;
                         $('.row').empty();
@@ -161,14 +164,12 @@ gamePlay = () => {
 
 
                         enterNameBtn.click(() => {
-                            let winnerName = myInput.val();
-                            let winnerScore = mistakeCounter;
 
                             let winnersList = JSON.parse(localStorage.getItem('winners') || '[]');
-                            winnersList.forEach((person, index) => {
+                            winnersList.forEach(() => {
                                 let item = {
-                                    name: winnerName,
-                                    score: winnerScore,
+                                    name: myInput.val(),
+                                    score: mistakeCounter,
                                 };
                                 namesArray.push(item);
                             });
@@ -176,27 +177,24 @@ gamePlay = () => {
                             winnersList = JSON.parse(localStorage.getItem('winners') || '[]');
 
                             let person = {
-                                name: winnerName,
-                                score: winnerScore,
+                                name: myInput.val(),
+                                score: mistakeCounter,
                             };
 
                             winnersList.push(person);
                             localStorage.setItem('winners', JSON.stringify(winnersList));
                             let superScore = 1000;
                             let name = "";
-                            winnersList.forEach((person, index) => {
+                            winnersList.forEach((person) => {
                                 if (superScore > person.score) {
                                     superScore = person.score;
                                     name = person.name;
                                 }
 
                             });
-                            let message = $("<h3/>");
+                            let message = $("<h4/>");
                             message.text("The champion of the game is " +
                                 `${name} that was able to win with ${superScore} guesses!`);
-                            message.css = ({
-                                color: "white",
-                            })
                             winBox.append(message);
 
                         });
@@ -263,7 +261,7 @@ gamePlay();
 // change game-board size;
 
 $('#small').click(() => {
-    $('.row').empty();
+    $('.for-delete').empty();
     winCounter = 0;
     boardSize = 18;
     dealCards(boardSize);
@@ -271,7 +269,7 @@ $('#small').click(() => {
 });
 
 $('#medium').click(() => {
-    $('.row').empty();
+    $('.for-delete').empty();
     boardSize = 10;
     winCounter = 0;
     if (academia) {
@@ -284,7 +282,7 @@ $('#medium').click(() => {
 });
 
 $('#big').click(() => {
-    $('.row').empty();
+    $('.for-delete').empty();
     boardSize = 0;
     winCounter = 0;
     if (academia) {
@@ -302,12 +300,13 @@ $('#big').click(() => {
 $('.btn-danger').click(() => {
     academia = !academia;
     winCounter = 0;
-    $('.row').empty();
+    $('.for-delete').empty();
     if (academia) {
         $('body').css({
             backgroundImage: `url("../images/academia.jpg")`,
             backgroundSize: 'cover',
         });
+        
         shuffeledPics = shufflePictures(philosophers);
     } else {
         $('body').css({
